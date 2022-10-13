@@ -1,0 +1,105 @@
+
+
+/* ELEMENTOS HTML*/
+html {
+  background-color: black;
+  }
+body {
+  display: table;
+  background-color: #333333;
+  min-width: 75%;
+  margin: 20px auto;
+}
+
+h1{
+  color: #e9e9e9;
+  font-size:200%; 
+}
+
+legend{
+  text-align: center;
+}
+li{
+   list-style:none; 
+}
+
+/* CLASES */
+.header{
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  text-align: center;
+  margin: 10px auto 30px auto;
+  border-radius: 15px;
+  box-shadow:1px 1px 10px 1px #e9e9e9;
+}
+
+.imgs {
+  width: 200px;
+  height: 100px;
+  
+ 
+}
+.botonera{
+  display: flex;
+  justify-content: space-around;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  align-items: center;
+  width: 80%;
+  margin: auto auto auto auto;
+  border: 3px solid #e9e9e9;
+  border-radius: 15px;
+  padding: 50px;
+  background-color:#e9e9e9;
+  box-shadow:1px 1px 10px 1px #e9e9e9;
+
+  
+}
+
+.formulario,
+.resultados {
+  display: table; /*Evita el desbordamiento del div*/
+  width: 30%;
+  border: 2px #333333 ridge ;
+  padding: 10px;
+  margin: 5px 10px;
+  background-color:#f05ab1;
+  color: rgb(255, 255, 255);
+  box-shadow:1px 1px 10px 1px #000000; 
+
+}
+.formulario {
+  border-radius: 25px;
+  /* margin-left: 10%; */
+}
+/* .resultados {
+    margin-right: 10%;
+} */
+
+.footer {
+  text-align: center;
+  font-size: 80%;
+  background-color: brown;
+  color: white;
+  width: 50%;
+  margin: 30px auto; 
+  border-radius: 15px;
+  box-shadow:1px 1px 10px 1px #e9e9e9;
+
+
+}
+
+.boton {
+  margin-top: 10px;
+  border-radius: 5px;
+  border-color: #333333;
+  background-color:#333333;
+  color:#e9e9e9
+}
+.negrita{
+  font-weight: bolder;
+}
