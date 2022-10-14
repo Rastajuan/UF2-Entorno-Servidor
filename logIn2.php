@@ -36,30 +36,26 @@ if (isset($_POST['botonEntrar'])) {
     </div>
 
     <div class="logIn" id="cont">
-        <div class="formulario">
+        <div class="formLogin">
             <fieldset>
-                <legend class="negrita">Introduzca usuario y contraseña</legend>
+                <legend class="negrita">Enter username and password</legend>
                 <form role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="">
-                    <table>
+                    <table class="tbLog">
                         <tr>
-                            <td class="negrita">
-                                <label for="titulo"> Usuario</label>
-                            </td>
                             <td>
-                                <input type="text" name="usuario" placeholder="Introduzca su usuario" autofocus </td>
+                                <input class="sinBorde" type="text" name="usuario" placeholder="Username" autofocus </td>
 
                         </tr>
                         <tr>
-                            <td class="negrita">
-                                <label for="fecha"> Password </label>
-                            </td>
-                            <td><input type="password" name="password" placeholder="****" />
+                            <td><input class="sinBorde" type="password" name="password" placeholder="****" />
                             </td>
 
                         </tr>
-
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
                     </table>
-                    <input class="boton botonLog" type="submit" value="Entrar" name="botonEntrar" />
+                    <input class="botonLog" type="submit" value="Entrar" name="botonEntrar" />
                 </form>
 
             </fieldset>

@@ -7,15 +7,26 @@
           <label for="titulo"> T&iacute;tulo</label>
         </td>
         <td>
-          <input type="text" name="titulo" id="tituloForm" placeholder="Título
-          del evento"
+          <input 
+          type="text" 
+          name="titulo" id="tituloForm" placeholder="Título
+          del evento" 
+          autofocus
+          required
         </td>
+        <td class="required">*</td>
       </tr>
       <tr>
         <td class="negrita">
           <label for="fecha"> Fecha </label>
         </td>
-        <td><input type="date" name="fecha" id="fechaForm" /></td>
+        <td><input
+          type="date" 
+          name="fecha" 
+          id="fechaForm"  
+          required/>
+        </td>
+        <td class="required">*</td>
       </tr>
       <tr>
         <td class="negrita">
@@ -27,16 +38,19 @@
             name="ciudad"
             id="ciudadForm"
             placeholder="Ciudad del evento"
+            required
           />
+          
         </td>
+        <td class="required">*</td>
       </tr>
       <tr>
         <td class="negrita">
           <label for="tipo"> Tipo </label>
         </td>
         <td>
-          <select name="tipo" id="selectForm">
-            <option value="" selected>Seleccione el tipo de evento</option>
+          <select name="tipo" id="selectForm"  required>
+            <option value="" selected disabled>Seleccione el tipo de evento</option>
             <option value="Música">M&uacute;sica</option>
             <option value="Cine">Cine</option>
             <option value="Comida">Comida</option>
@@ -45,13 +59,25 @@
             <option value="Viajes">Viajes</option>
           </select>
         </td>
+        <td class="required">*</td>
       </tr>
     </table>
     <fieldset>
       <legend class="negrita">Precio actividad</legend>
-      <input type="radio" name="precio" value="Gratis" id="gratuito" checked />
+      <input 
+      type="radio" 
+      name="precio" 
+      value="Gratis" 
+      id="gratuito" 
+      checked
+    />
       <label for="gratuito">Gratis</label>
-      <input type="radio" name="precio" value="De pago" id="dePago" />
+      <input 
+      type="radio" 
+      name="precio" 
+      value="De pago" 
+      id="dePago" 
+     />
       <label for="dePago">Pago</label><br /><br />
     </fieldset>
     <div class = "botonera">
@@ -70,3 +96,4 @@
     </div>
   </form>
 </fieldset>
+<p class="infoForm">Los campos marcados con (<spam class="required">*</spam>) son obligatorios</p>

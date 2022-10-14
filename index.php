@@ -1,9 +1,51 @@
 <!DOCTYPE html>
-<!-- REQUERIMOS LA CARGA DEL ARCHIVO DONDE TENEMOS CREADA LA CLASE PHP 'ACTIVIDAD' -->
-<?php require "actividad.php"; ?>
+<!-- Requerimos la carga del archivo donde hemos creado la clase php 'Acitvidad' -->
+<?php
+require "actividad.php";
+?>
 
-<!-- SI SE HA ENVIADO EL FORMULARIO MEDIANTE EL BOTON "botonEnviar" SE CREARA UN OBJETO DE CLASE ACTIVIDAD ($actividad) MEDIANTE LA FUNCION CONSTRUCTORA CON LOS PARAMETROS ENVIADOS POR EL FORMULARIO
-        PUEDE HACERSE DE DOS MANERAS, MEDIANTE EL METODO ISSET COMPROBANDO QUE E HA PULSADO EL BOTON O SI SE HA ENVIADO EL FORMULARIO MEDIANTE LE METODO POST. EN EL EJEMPLO SE USAN LAS DOS MANERAS CON UN OR(||) PERO CON UNA ES SUFICIENTE-->
+<!-- Iniciamos la sesión con la función session_start();
+Luego creamos un array
+-->
+<?php
+
+session_start(); //Inicia siempre una nueva sesión y php controla si es nueva o no
+
+/* Comprobación loguin usuario
+Si no está iniciada la sesión con el usuario redirigimos a la página de logIn, no nos deja continuar con el resto de la web
+ */
+if (!isset($_SESSION["usuario"])) {
+    header('Location: logIn.php');
+    exit();
+}
+/* Con un condicional creamos el array únicamente si este no ha sido creado ya (no hemos iniciado sesión) o no hemos abandonado la web*/
+if (!isset($_SESSION["actividades_creadas"])) {
+    $_SESSION["actividades_creadas"] = array();
+}
+
+/* Cada vez que se crea un objeto e la clase Actividad mediante el botón enviar, incluiremos la nueva actividad en el array $_SESSION["actividades_creadas"] creado anteriormente el método array_push()
+Como lo almacenamos para la sesión, debemos serializar el nuevo elemento del array con serialize()
+Creamos una nueva variable $actividad_serializada solamente para mejorar la visualización del código, pero serviría igualemnte array_push($_SESSION["actividades_creadas"], serialize($actividad));*/
+if (isset($_POST["botonEnviar"])) {
+    $actividad = new Actividad(
+        $_POST["titulo"],
+        $_POST["tipo"],
+        $_POST["fecha"],
+        $_POST["ciudad"],
+        $_POST["precio"]
+    );
+
+    $actividad_serializada = serialize($actividad);
+
+    array_push($_SESSION["actividades_creadas"], $actividad_serializada);
+}
+
+
+
+?>
+
+<!-- Si se ha enviado el formulario con el botón de nombre "botonEnviar" se creará un nuevo objeto de la clase Actividad ($actividad) mediante la función constructora, con los parñámetros enviados desde el formulario.
+Con el método isset($_POST["botonEnviar"]) comprobamos que se ha enviado el formulario-->
 <?php
 if (isset($_POST["botonEnviar"])) {
     $actividad = new Actividad(
@@ -15,7 +57,7 @@ if (isset($_POST["botonEnviar"])) {
     );
 }
 ?>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -23,14 +65,20 @@ if (isset($_POST["botonEnviar"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Actividades</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- <link rel="stylesheet" href="estilos2.css"> -->
 </head>
 
 <body>
+
     <div class="header">
         <header>
             <h1>FORMULARIO DE ACTIVIDADES</h1>
         </header>
+    </div>
+    <div class="barraUsuario">
+        <p>Usuario actual: <?php echo $_SESSION["usuario"]; ?>
+
+        </p>
+        <a href="logOut.php" >Cerrar Sesión</a>
     </div>
 
     <div class="container" id="cont">
@@ -41,23 +89,22 @@ if (isset($_POST["botonEnviar"])) {
             </section>
         </div>
 
-        <!-- MEDIANTE UN IF MOSTRAREMOS O NO EL CONTENEDOR DE LA ACTIVIDAD. SI SE HA CREADO EL OBJETO $actividad, SE MOSTRARÁ, SI NO NO APARECERÁ EN PANTALLA 
-        LOS DOS PUNTOS (:) DESPUES DE LA CONDICION DEL IF INDICA QUE EL IF QUEDA ABIERTO Y QUE LO QUE ESTÁ DESPUÉS OCURRIRÁ SOLO SI SE CUMPLE LA CONDICION DEL IF-->
-        <?php if (isset($actividad)) : ?>
-
-
-
+        <!-- Mediante un foreach iteramos en el array y se lo asignamos a la variable $actividadSerializada
+        A continuación, hay que deserializar el contenido, creamos otra variable (aunque puede hacerse foreach($_SESSION["actividades_creadas"] as unserialeze($actividadSerializada)) pero mejoramos la legibilidad del código) para deerializar y poder acceder al contenido del array -->
+        <?php foreach ($_SESSION["actividades_creadas"] as $actividadSerializada) :
+            $actividad = unserialize($actividadSerializada);
+        ?>
             <div class="resultados" id="result">
                 <!-- Incluimos el resultado desde un archivo externeo 'resultado.html' con php -->
                 <?php include "resultado.html" ?>
             </div>
 
-        <?php endif; ?>
+        <?php endforeach; ?>
 
     </div>
     <div class=" footer" id="foot">
         <footer>
-            <p>©Copyleft 2022 <strong>Juan Bello Fernández</strong> </br> Trabajo perteneciente a la UF1 de Diseño Web en Entorno Servidor. 2º DAW</p>
+            <p>©Copyleft 2022 <strong>Juan Bello Fernández</strong> </br> Trabajo perteneciente a la UF2 de Diseño Web en Entorno Servidor. 2º DAW</p>
 
             </p>
 
