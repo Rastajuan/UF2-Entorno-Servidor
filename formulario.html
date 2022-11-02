@@ -1,5 +1,5 @@
 <fieldset>
-  <legend class="negrita">Introduzca los datos de la actividad a crear</legend>
+  <legend class="negrita">Nueva Actividad</legend>
   <form role="form" method="post" action="index.php" class="form">
     <table>
       <tr>
@@ -7,24 +7,22 @@
           <label for="titulo"> T&iacute;tulo</label>
         </td>
         <td>
-          <input 
-          type="text" 
-          name="titulo" id="tituloForm" placeholder="Título
-          del evento" 
-          autofocus
-          required
+          <input type="text" name="titulo" id="tituloForm" placeholder="Título
+          del evento" autofocus
         </td>
-        <td class="required">*</td>
       </tr>
       <tr>
         <td class="negrita">
           <label for="fecha"> Fecha </label>
         </td>
-        <td><input
-          type="date" 
-          name="fecha" 
-          id="fechaForm"  
-          required/>
+        <td>
+          <input
+            type="date"
+            name="fecha"
+            id="fechaForm"
+            placeholder="."
+            required
+          />
         </td>
         <td class="required">*</td>
       </tr>
@@ -40,7 +38,6 @@
             placeholder="Ciudad del evento"
             required
           />
-          
         </td>
         <td class="required">*</td>
       </tr>
@@ -49,8 +46,10 @@
           <label for="tipo"> Tipo </label>
         </td>
         <td>
-          <select name="tipo" id="selectForm"  required>
-            <option value="" selected disabled>Seleccione el tipo de evento</option>
+          <select title="opciones" name="tipo" id="selectForm" required>
+            <option value="" selected disabled>
+              Seleccione el tipo de evento
+            </option>
             <option value="Música">M&uacute;sica</option>
             <option value="Cine">Cine</option>
             <option value="Comida">Comida</option>
@@ -62,25 +61,14 @@
         <td class="required">*</td>
       </tr>
     </table>
-    <fieldset>
+    <fieldset class="precios">
       <legend class="negrita">Precio actividad</legend>
-      <input 
-      type="radio" 
-      name="precio" 
-      value="Gratis" 
-      id="gratuito" 
-      checked
-    />
+      <input type="radio" name="precio" value="Gratis" id="gratuito" checked />
       <label for="gratuito">Gratis</label>
-      <input 
-      type="radio" 
-      name="precio" 
-      value="De pago" 
-      id="dePago" 
-     />
+      <input type="radio" name="precio" value="De pago" id="dePago" />
       <label for="dePago">Pago</label><br /><br />
     </fieldset>
-    <div class = "botonera">
+    <div class="botonera">
       <input
         class="boton"
         type="submit"
@@ -96,4 +84,4 @@
     </div>
   </form>
 </fieldset>
-<p class="infoForm">Los campos marcados con (<spam class="required">*</spam>) son obligatorios</p>
+<p class="infoForm">Los campos marcados con (*) son obligatorios</p>

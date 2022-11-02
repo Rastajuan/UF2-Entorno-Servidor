@@ -1,21 +1,27 @@
+<!-- Iniciamos la sesión con la función session_start();
+Luego creamos un array
+-->
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <!-- Requerimos la carga del archivo donde hemos creado la clase php 'Acitvidad' -->
 <?php
 require "actividad.php";
 ?>
 
-<!-- Iniciamos la sesión con la función session_start();
-Luego creamos un array
--->
+<!-- Si no tenemos la sesión iniciada pero existe la cookie de usuario asignamos a la $_SESSION["usuario"] el vlaor de la cookie con lo que se saltará el siguiente condicional pues ya existe sesión iniciada-->
 <?php
-
-session_start(); //Inicia siempre una nueva sesión y php controla si es nueva o no
-
+if (!isset($_SESSION["usuario"]) && isset($_COOKIE["cookieDeUsuario"])) {
+    $_SESSION["usuario"] = $_COOKIE["cookieDeUsuario"];
+}
+?>
+<?php
 /* Comprobación loguin usuario
 Si no está iniciada la sesión con el usuario redirigimos a la página de logIn, no nos deja continuar con el resto de la web
  */
 if (!isset($_SESSION["usuario"])) {
-    header('Location: logIn.php');
+    header('Location: logIn_es.php');
     exit();
 }
 /* Con un condicional creamos el array únicamente si este no ha sido creado ya (no hemos iniciado sesión) o no hemos abandonado la web*/
@@ -64,52 +70,75 @@ if (isset($_POST["botonEnviar"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Actividades</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="css/index_css.css">
 </head>
 
 <body>
+    <header>
+        <h1>FORMULARIO DE ACTIVIDADES</h1>
+        <BR>
+        <h2>RELLENE LOS CAMPOS PARA CREAR UNA NUEVA ACTIVIDAD</h2>
+    </header>
 
-    <div class="header">
-        <header>
-            <h1>FORMULARIO DE ACTIVIDADES</h1>
-        </header>
+    <div id="users">
+        <nav class="users">
+            <div>
+                <p>Usuario actual:<spam> <?php echo $_SESSION["usuario"]; ?></spam>
+                </p>
+            </div>
+            <div class="salir">
+                <form>
+                    <a href="logOut.php" name="logOut" title="Cierra sesión">Cerrar Sesión</a>
+                </form>
+
+            </div>
+        </nav>
     </div>
-    <div class="barraUsuario">
-        <p>Usuario actual: <?php echo $_SESSION["usuario"]; ?>
 
-        </p>
-        <a href="logOut.php" >Cerrar Sesión</a>
+
+    <!-- Incluimos el formulario desde un archivo externo 'formulario.html' con php -->
+    <div id="formulario">
+        <section class="datos">
+            <?php include "formulario.html" ?>
+        </section>
+
+        <p class="info">Rellene el formulario para añadir actividades a su agenda<br><br>Recuerde que los campos marcados con (*) son obligatorios</p>
+
+
     </div>
 
-    <div class="container" id="cont">
-        <!-- Incluimos el formulario desde un archivo externeo 'formulario.html' con php -->
-        <div class="formulario" id="form">
-            <section>
-                <?php include "formulario.html" ?>
-            </section>
-        </div>
 
-        <!-- Mediante un foreach iteramos en el array y se lo asignamos a la variable $actividadSerializada
-        A continuación, hay que deserializar el contenido, creamos otra variable (aunque puede hacerse foreach($_SESSION["actividades_creadas"] as unserialeze($actividadSerializada)) pero mejoramos la legibilidad del código) para deerializar y poder acceder al contenido del array -->
+    <!-- Mediante un foreach iteramos en el array y se lo asignamos a la variable $actividadSerializada
+        A continuación, hay que deserializar el contenido, creamos otra variable (aunque puede hacerse foreach($_SESSION["actividades_creadas"] as unserialeze($actividadSerializada)) pero mejoramos la legibilidad del código) para deserializar y poder acceder al contenido del array -->
+
+    <div id="resultados">
         <?php foreach ($_SESSION["actividades_creadas"] as $actividadSerializada) :
             $actividad = unserialize($actividadSerializada);
         ?>
-            <div class="resultados" id="result">
-                <!-- Incluimos el resultado desde un archivo externeo 'resultado.html' con php -->
-                <?php include "resultado.html" ?>
-            </div>
+            <!-- Incluimos el resultado desde un archivo externeo 'resultado.html' con php -->
+            <?php include "resultado.php" ?>
 
         <?php endforeach; ?>
 
-    </div>
-    <div class=" footer" id="foot">
-        <footer>
-            <p>©Copyleft 2022 <strong>Juan Bello Fernández</strong> </br> Trabajo perteneciente a la UF2 de Diseño Web en Entorno Servidor. 2º DAW</p>
 
-            </p>
-
-        </footer>
     </div>
+
+
+
+
+
+
+
+
+
+
+    <footer>
+        <p>©Copyleft 2022 <strong>Juan Bello Fernández</strong> </br> Trabajo perteneciente a la UF2 de Diseño Web en Entorno Servidor. 2º DAW</p>
+
+        </p>
+
+    </footer>
+
 
 
 </body>
